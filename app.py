@@ -6,6 +6,7 @@ from flask_cors import CORS
 from PIL import Image
 from io import BytesIO
 import tensorflow as tf
+import os
 
 # Ruta del modelo
 MODEL_PATH = './clasificador_canecas.h5'
@@ -92,6 +93,6 @@ def predict():
         print(f"❌ Error inesperado durante la predicción: {e}")
         return jsonify({"error": f"Error interno del servidor durante la inferencia: {str(e)}"}), 500
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
